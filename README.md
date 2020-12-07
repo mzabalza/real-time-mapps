@@ -23,3 +23,44 @@ brew install kafka
 ```
 zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties & kafka-server-start /usr/local/etc/kafka/server.properties
 ```
+
+During server start, you might be facing connection broken issue.
+To fix this issue, we need to change the server.properties file.
+```
+vim /usr/local/etc/kafka/server.properties
+```
+Here uncomment the server settings and update the value from
+```
+listeners=PLAINTEXT://:9092
+```
+to
+```
+############################# Socket Server Settings #############################
+# The address the socket server listens on. It will get the value returned from 
+# java.net.InetAddress.getCanonicalHostName() if not configured.
+#   FORMAT:
+#     listeners = listener_name://host_name:port
+#   EXAMPLE:
+#     listeners = PLAINTEXT://your.host.name:9092
+listeners=PLAINTEXT://localhost:9092
+```
+and restart the server
+
+* 3. Create a folder for storing both kafka and zookeeper logs
+```
+mkdir data
+cd data
+mdkir kafka zookeeper
+```
+
+* 4. Change server and zookeeper properties to redirect logs to newly created files:
+```
+vim /usr/local/etc/kafka/zookeeper.properties
+16 dataDir=/usr/local/etc/kafka/data/zookeeper
+```
+```
+vim /usr/local/etc/kafka/server.properties
+60 log.dirs=/usr/local/etc/kafka/data/kafka
+```
+
+* 5. Create Kafka topic
