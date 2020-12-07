@@ -12,6 +12,14 @@ Project is created with:
 * LEAFLET.js - data consumer
 
 
-## Setup
+## Setup (for Mac users)
 
-* 1. Install kafka
+* 1. Install kafka 
+```
+brew cask install java
+brew install kafka
+```
+* 2. Launch zookeeper and kafka servers
+```
+zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties & kafka-server-start /usr/local/etc/kafka/server.properties
+```
