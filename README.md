@@ -63,4 +63,43 @@ vim /usr/local/etc/kafka/server.properties
 60 log.dirs=/usr/local/etc/kafka/data/kafka
 ```
 
-* 5. Create Kafka topic
+* 5. Create a Kafka topic
+
+Inside kafka folder run:
+```
+cd /usr/local/etc/kafka
+kafka-topics --zookeeper 127.0.0.1:2181 --topic test_topic --create --partitions 1 --replication-factor 1
+```
+
+See properties of a given topic:
+```
+kafka-topics --zookeeper 127.0.0.1:2181 --topic test_topic --describe
+```
+
+* 6. Create a Kafka CLI Producer 
+```
+kafka-console-producer --broker-list 127.0.0.1:9092 --topic test_topic
+```
+
+* 7. Create a Kafka CLI Consumer
+```
+kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic test_topic --from-beginning
+```
+
+## PYTHON
+
+Before starting with python its recommend to create a environment for the project and install there all required dependencies:
+
+```
+virtualenv env
+source env/bin/activate
+```
+```
+pip install pykafka
+```
+
+* 8. Create a Python Kafka Producer
+
+
+## Inspiration
+https://www.youtube.com/watch?v=xiouigXHqdE&list=PL2UmzTIzxgL7Bq-mW--vtsM2YFF9GqhVB&index=5&ab_channel=Code%26Dogs
