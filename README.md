@@ -2,8 +2,8 @@
 [Work in progress...]
 
 ## Table of contents
-* [General info](#general info)
-* [Building Blocks](#building blocks)
+* [General info](#general-info)
+* [Building Blocks](#building-blocks)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Inspiration](#inspiration)
