@@ -17,8 +17,8 @@ Project is created with:
 ## Building blocks
 
 * REAL TIME DATA PROVIDER: Kafka
-* Service provider: Node service with Express JS and socket.io
-* Client: React, no-kafka (npm package)
+* SERVICE PROVIDER: Node service with Express JS and socket.io
+* CLIENT: React, no-kafka (npm package)
 
 
 ## Setup (for Mac users)
