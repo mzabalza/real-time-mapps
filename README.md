@@ -1,4 +1,4 @@
-# REAL TIME MAPP WITH KAFKA FLASK AND LEAFLET.j
+# REAL TIME MAPP WITH KAFKA FLASK AND LEAFLET.JS
 [Work in progress...]
 
 ## Table of contents
