@@ -2,7 +2,8 @@
 [Work in progress...]
 
 ## Table of contents
-* [General info](#general-info)
+* [General info](#general info)
+* [Building Blocks](#building blocks)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Inspiration](#inspiration)
@@ -10,6 +11,14 @@
 Project is created with:
 * KAFKA - streaming data
 * LEAFLET.js - data consumer
+
+## General info
+
+## Building blocks
+
+* REAL TIME DATA PROVIDER: Kafka
+* Service provider: Node service with Express JS and socket.io
+* Client: React, no-kafka (npm package)
 
 
 ## Setup (for Mac users)
