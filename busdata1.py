@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 import uuid
 import time
+from itertools import cycle 
 
 input_file = open('./data/bus1.json')
 json_array = json.load(input_file)
@@ -17,7 +18,8 @@ producer = topic.get_sync_producer()
 
 # CONSTRUCT MESSAGE AND SEND IT TO KAFKA
 def generate_checkpoint(coordinates):
-    for i, coordinate in enumerate(coordinates):
+    i = 0
+    while i < len(coordinates):
         data = {
             'busline': '00001',
             'key': f'00001_{uuid.uuid4()}',
@@ -27,8 +29,12 @@ def generate_checkpoint(coordinates):
         }
         message = json.dumps(data)
         producer.produce(message.encode('ascii'))
-        print(message)
-        time.sleep(2)
+        print(i, message)
 
+        i += 1
+        time.sleep(1.2)
+        if i == len(coordinates):
+            i = 0
 
+            
 generate_checkpoint(coordinates)
