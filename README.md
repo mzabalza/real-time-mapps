@@ -1,8 +1,9 @@
-# REAL TIME MAPP WITH KAFKA FLASK AND LEAFLET.j
+# REAL TIME MAPP WITH KAFKA FLASK AND LEAFLET.JS
 [Work in progress...]
 
 ## Table of contents
 * [General info](#general-info)
+* [Building Blocks](#building-blocks)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Inspiration](#inspiration)
@@ -10,6 +11,14 @@
 Project is created with:
 * KAFKA - streaming data
 * LEAFLET.js - data consumer
+
+## General info
+
+## Building blocks
+
+* REAL TIME DATA PROVIDER: Kafka
+* SERVICE PROVIDER: Node service with Express JS and socket.io
+* CLIENT: React, no-kafka (npm package)
 
 
 ## Setup (for Mac users)
