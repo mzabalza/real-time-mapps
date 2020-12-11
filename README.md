@@ -1,6 +1,7 @@
 # REAL TIME MAPP WITH KAFKA SOCKET.IO AND MAPBOX GL JS
 
 
+<p align="center"><img  src="readme/trafi_data.gif"></p>
 <p align="center"><img  src="readme/bus_ride.gif"></p>
 
 [Work in progress...]
