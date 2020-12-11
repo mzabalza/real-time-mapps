@@ -1,5 +1,10 @@
-# REAL TIME MAPP WITH KAFKA FLASK AND LEAFLET.JS
+# REAL TIME MAPP WITH KAFKA SOCKET.IO AND MAPBOX GL JS
+
+
+<p align="center"><img  src="readme/bus_ride.gif"></p>
+
 [Work in progress...]
+
 
 ## Table of contents
 * [General info](#general-info)
@@ -8,9 +13,6 @@
 * [Setup](#setup)
 * [Inspiration](#inspiration)
 
-Project is created with:
-* KAFKA - streaming data
-* LEAFLET.js - data consumer
 
 ## General info
 
@@ -18,7 +20,7 @@ Project is created with:
 
 * REAL TIME DATA PROVIDER: Kafka
 * SERVICE PROVIDER: Node service with Express JS and socket.io
-* CLIENT: React, no-kafka (npm package)
+* CLIENT: React, Mapbox GL JS (npm package)
 
 
 ## Setup (for Mac users)
@@ -111,4 +113,5 @@ pip install pykafka
 
 
 ## Inspiration
-https://www.youtube.com/watch?v=xiouigXHqdE&list=PL2UmzTIzxgL7Bq-mW--vtsM2YFF9GqhVB&index=5&ab_channel=Code%26Dogs
+* https://www.youtube.com/watch?v=xiouigXHqdE&list=PL2UmzTIzxgL7Bq-mW--vtsM2YFF9GqhVB&index=5&ab_channel=Code%26Dogs
+* https://github.com/juliannemarik/Mapbox-Wrapper
