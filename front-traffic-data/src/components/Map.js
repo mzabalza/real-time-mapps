@@ -4,16 +4,15 @@ import './Body.css';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Immutable from 'immutable';
-import { setStyle, fetchAllStations } from '../store/index';
+import { setStyle } from '../store/index';
 
-import geojsonCtaLines from '../data/CTA_Rail_Lines.json';
 import geojsonTrafic from '../data/ci_trafi.json';
 
 
 class Map extends Component {
   componentDidMount() {
     const { accessToken, styleName, lon, lat, zoomScale, line } = this.props;
-    const { setStyle, setInitialStations } = this.props;
+    const { setStyle } = this.props;
 
     mapboxgl.accessToken = accessToken;
 
@@ -25,75 +24,42 @@ class Map extends Component {
     });
 
     this.map.on('load', async () => {
-      await setInitialStations().then(() => {
-        const { chargingStations } = this.props;
 
-        this.map.addSource('cta-lines', {
-          type: 'geojson',
-          data: geojsonTrafic
-        })
+      this.map.addSource('cta-lines', {
+        type: 'geojson',
+        data: geojsonTrafic
+      })
 
-        // ADD MAP LAYERS
-        this.map.addLayer({
-          id: 'cta-lines',
-          type: 'line',
-          source: 'cta-lines',
-          layout: {
-            'line-cap': 'round',
-            // 'line-join': 'round'
-          },
-          paint: {
-            'line-color': [
-              "match",
-              ["get", "etat"],
-              ["DENSE"],
-              "hsl(0, 85%, 50%)",
-              ["EMBOUTEILLE"],
-              "hsl(40, 88%, 55%)",
-              ["INCONNU"],
-              "hsl(0, 3%, 37%)",
-              "hsl(117, 93%, 66%)"
-            ],
-            'line-width': 3
-          }
-        })
+      // ADD MAP LAYERS
+      this.map.addLayer({
+        id: 'cta-lines',
+        type: 'line',
+        source: 'cta-lines',
+        layout: {
+          'line-cap': 'round',
+          // 'line-join': 'round'
+        },
+        paint: {
+          'line-color': [
+            "match",
+            ["get", "etat"],
+            ["DENSE"],
+            "hsl(0, 85%, 50%)",
+            ["EMBOUTEILLE"],
+            "hsl(40, 88%, 55%)",
+            ["INCONNU"],
+            "hsl(0, 3%, 37%)",
+            "hsl(117, 93%, 66%)"
+          ],
+          'line-width': 3
+        }
+      })
 
-        this.map.addSource('ev-charging-stations', {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: chargingStations.map(station => {
-              return {
-                type: 'Feature',
-                geometry: {
-                  type: 'Point',
-                  coordinates: [station.longitude, station.latitude],
-                },
-              };
-            }),
-          },
-        });
-
-        this.map.addLayer({
-          id: 'allStations',
-          type: 'circle',
-          source: 'ev-charging-stations',
-          layout: {
-            visibility: 'none',
-          },
-          paint: {
-            'circle-radius': 3,
-            'circle-color': '#B42222',
-          },
-        });
-        setStyle(this.map.getStyle());
-      });
+      setStyle(this.map.getStyle());
     });
   }
 
   componentDidUpdate(prevProps) {
-
-
 
     const currentStyle = this.props.style;
     const previousStyle = prevProps.style;
@@ -124,13 +90,11 @@ class Map extends Component {
 const mapStateToProps = state => {
   return {
     style: state.style,
-    chargingStations: state.chargingStations,
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     setStyle: style => dispatch(setStyle(style)),
-    setInitialStations: () => dispatch(fetchAllStations()),
   };
 };
 

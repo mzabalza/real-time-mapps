@@ -1,15 +1,10 @@
 import './Body.css';
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeWaterColor, toggleStations, changeMarkerSize } from '../store/index';
+import { toggleStations, changeMarkerSize } from '../store/index';
 
 const Sidebar = props => {
-  const { changeWaterColor, toggleStations, changeMarkerSize } = props;
-
-  const handleColorChange = event => {
-    const color = event.target.value;
-    changeWaterColor(color);
-  };
+  const { toggleStations, changeMarkerSize } = props;
 
   const handleStations = event => {
     const visibility = event.target.value === 'on' ? 'visible' : 'none';
@@ -24,39 +19,8 @@ const Sidebar = props => {
 
   return (
     <div id="sidebar">
-      <h1>MAP STYLING</h1>
+      <h1>STYLING</h1>
       <form>
-        <div
-          className="styleOption mapStyle"
-          onChange={event => handleColorChange(event)}
-        >
-          <h3>LINE COLOR</h3>
-          <label className="sidebarField lightBlue">
-            <input
-              id="colorRadio"
-              type="radio"
-              value="hsl(185, 9%, 81%)"
-              name="waterColor"
-            />
-          </label>
-          <label className="sidebarField darkBlue">
-            <input
-              id="colorRadio"
-              type="radio"
-              value="hsl(226, 51%, 60%)"
-              name="waterColor"
-            />
-          </label>
-          <label className="sidebarField darkTurquoise">
-            <input
-              id="colorRadio"
-              type="radio"
-              value="hsl(197, 94.6%, 29.2%)"
-              name="waterColor"
-            />
-          </label>
-        </div>
-
         <div
           className="styleOption evStations"
           onChange={event => handleStations(event)}
@@ -93,9 +57,6 @@ const Sidebar = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeWaterColor: color => {
-      dispatch(changeWaterColor(color));
-    },
     toggleStations: visibility => {
       dispatch(toggleStations(visibility));
     },

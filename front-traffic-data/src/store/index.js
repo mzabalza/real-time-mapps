@@ -5,8 +5,6 @@ import axios from 'axios';
 
 // ACTION TYPES
 const SET_STYLE = 'SET_STYLE';
-const SET_CHARGING_STATIONS = 'SET_CHARGING_STATIONS';
-const CHANGE_WATER_COLOR = 'CHANGE_WATER_COLOR';
 const TOGGLE_STATIONS = 'TOGGLE_STATIONS';
 const CHANGE_MARKER_SIZE = 'CHANGE_MARKER_SIZE';
 
@@ -14,14 +12,6 @@ const CHANGE_MARKER_SIZE = 'CHANGE_MARKER_SIZE';
 export const setStyle = style => ({
   type: SET_STYLE,
   style,
-});
-export const setChargingStations = chargingStations => ({
-  type: SET_CHARGING_STATIONS,
-  chargingStations,
-});
-export const changeWaterColor = color => ({
-  type: CHANGE_WATER_COLOR,
-  color,
 });
 export const toggleStations = visibility => ({
   type: TOGGLE_STATIONS,
@@ -31,14 +21,6 @@ export const changeMarkerSize = size => ({
   type: CHANGE_MARKER_SIZE,
   size
 })
-
-// THUNK CREATOR
-export const fetchAllStations = () => async dispatch => {
-  const { data: chargingStations } = await axios.get(
-    'https://developer.nrel.gov/api/alt-fuel-stations/v1.json?api_key=fdpgLKYjndcWXLur2BpDVOTmjYJWiW9LqhVTyRtX&state=IL&fuel_type=ELEC'
-  );
-  dispatch(setChargingStations(chargingStations.fuel_stations));
-};
 
 // INITIAL STATE
 const initialState = {
@@ -50,15 +32,6 @@ const initialState = {
 const handlers = {
   [SET_STYLE]: (state, action) => {
     return { ...state, style: action.style };
-  },
-  [SET_CHARGING_STATIONS]: (state, action) => {
-    return { ...state, chargingStations: action.chargingStations };
-  },
-  [CHANGE_WATER_COLOR]: (state, action) => {
-    const newStyle = { ...state.style };
-    const layer = newStyle.layers.find(layer => layer.id === 'cta-lines');
-    layer.paint[`line-color`] = action.color;
-    return { ...state, style: newStyle };
   },
   [TOGGLE_STATIONS]: (state, action) => {
     const newStyle = { ...state.style };
