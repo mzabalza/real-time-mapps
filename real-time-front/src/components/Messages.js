@@ -15,7 +15,6 @@ const Messages = ({ active }) => {
     const ENDPOINT = 'http://localhost:5010';
 
 
-
     useEffect(() => {
         console.log('New user');
         socket = io(ENDPOINT);

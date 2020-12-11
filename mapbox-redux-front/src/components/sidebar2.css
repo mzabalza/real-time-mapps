@@ -1,0 +1,44 @@
+#sidebar {
+    width: 20vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #sidebar form {
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+  }
+  #sidebar .sidebarField {
+    margin-top: 5%;
+  }
+  #sidebar .styleOption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15%;
+  }
+  .evStations input {
+    margin-bottom: 10%;
+  }
+  .colorInput, .zoomInput {
+    width: 50%;
+    text-align: center;
+  }
+  #colorRadio {
+    display: none;
+  }
+  .lightBlue {
+    background-color: hsl(185, 9%, 81%);
+    padding: 10px;
+  }
+  .darkBlue {
+    background-color: hsl(226, 51%, 60%);
+    padding: 10px;
+  }
+  .darkTurquoise {
+    background-color: hsl(197, 94.6%, 29.2%);
+    padding: 10px;
+  }
+  
