@@ -113,4 +113,5 @@ pip install pykafka
 
 
 ## Inspiration
-https://www.youtube.com/watch?v=xiouigXHqdE&list=PL2UmzTIzxgL7Bq-mW--vtsM2YFF9GqhVB&index=5&ab_channel=Code%26Dogs
+* https://www.youtube.com/watch?v=xiouigXHqdE&list=PL2UmzTIzxgL7Bq-mW--vtsM2YFF9GqhVB&index=5&ab_channel=Code%26Dogs
+* https://github.com/juliannemarik/Mapbox-Wrapper
