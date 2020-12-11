@@ -27,7 +27,7 @@
 ### Setup (for Mac users)
 
 * 1. Install kafka 
-```
+```bash
 brew cask install java
 brew install kafka
 ```
