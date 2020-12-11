@@ -11,7 +11,6 @@
 * [General info](#general-info)
 * [Building Blocks](#building-blocks)
 * [Technologies](#technologies)
-* [Setup](#setup)
 * [Inspiration](#inspiration)
 
 
@@ -24,7 +23,8 @@
 * CLIENT: React, Mapbox GL JS (npm package)
 
 
-## Setup (for Mac users)
+## REAL TIME DATA PROVIDER: Kafka
+### Setup (for Mac users)
 
 * 1. Install kafka 
 ```
@@ -80,37 +80,82 @@ vim /usr/local/etc/kafka/server.properties
 Inside kafka folder run:
 ```
 cd /usr/local/etc/kafka
-kafka-topics --zookeeper 127.0.0.1:2181 --topic test_topic --create --partitions 1 --replication-factor 1
+kafka-topics --zookeeper 127.0.0.1:2181 --topic geodata_final --create --partitions 1 --replication-factor 1
 ```
 
 See properties of a given topic:
 ```
-kafka-topics --zookeeper 127.0.0.1:2181 --topic test_topic --describe
+kafka-topics --zookeeper 127.0.0.1:2181 --topic geodata_final --describe
 ```
 
 * 6. Create a Kafka CLI Producer 
 ```
-kafka-console-producer --broker-list 127.0.0.1:9092 --topic test_topic
+kafka-console-producer --broker-list 127.0.0.1:9092 --topic geodata_final
 ```
 
 * 7. Create a Kafka CLI Consumer
 ```
-kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic test_topic --from-beginning
+kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic geodata_final --from-beginning
 ```
 
-## PYTHON
+## Python Kafka Producer
 
-Before starting with python its recommend to create a environment for the project and install there all required dependencies:
+Before starting with python its recommended to create a environment for the project and install there all required dependencies:
 
 ```
 virtualenv env
 source env/bin/activate
 ```
 ```
-pip install pykafka
+pip install -r requirements.txt
 ```
 
-* 8. Create a Python Kafka Producer
+Through the module pykafka The python script creates a kafka client that is able to produce data that will be streamed through the newly created topic 'geodata_final'. The script busdayata1.py takes data from a json file containing several points of a bus ride and sends them to kafka one by one each second simulating the cycle of a bus. Instead of taking data from a static file, the data could come from an external api.
+
+```python
+from pykafka import KafkaClient
+import json
+from datetime import datetime
+import uuid
+import time
+from itertools import cycle
+
+# INPUT FILE
+input_file = open('./data/bus1.json')
+json_array = json.load(input_file)
+coordinates = json_array['features'][0]['geometry']['coordinates']
+
+# KAFKA PRODUCER
+client = KafkaClient(hosts="127.0.0.1:9092")
+topic = client.topics['geodata_final']
+producer = topic.get_sync_producer()
+
+
+# CONSTRUCT MESSAGE AND SEND IT TO KAFKA
+def generate_checkpoint(coordinates):
+    i = 0
+    while i < len(coordinates):
+        data = {
+            'busline': '00001',
+            'key': f'00001_{uuid.uuid4()}',
+            'timestamp': str(datetime.utcnow()),
+            'latitude': coordinates[i][1],
+            'longitude': coordinates[i][0]
+        }
+        message = json.dumps(data)
+        producer.produce(message.encode('ascii'))
+        print(i, message)
+
+        i += 1
+        time.sleep(1)
+        if i == len(coordinates):
+            i = 0
+
+            
+generate_checkpoint(coordinates)
+
+```
+
 
 
 ## Inspiration
