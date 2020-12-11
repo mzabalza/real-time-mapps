@@ -50,6 +50,7 @@ def generate_checkpoint():
     while True:
         message = json.dumps(data[i])
         producer.produce(message.encode('ascii'))
+        print(i)
         i += 1
         time.sleep(1)
         if i == 6:
