@@ -25,7 +25,6 @@ export const changeMarkerSize = size => ({
 // INITIAL STATE
 const initialState = {
   style: {},
-  chargingStations: [],
 };
 
 // HANDLERS

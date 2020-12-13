@@ -1,7 +1,7 @@
-import './Body.css';
+import './sidebar.css';
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleStations, changeMarkerSize } from '../store/index';
+import { toggleStations, changeMarkerSize } from '../../store/index';
 
 const Sidebar = props => {
   const { toggleStations, changeMarkerSize } = props;

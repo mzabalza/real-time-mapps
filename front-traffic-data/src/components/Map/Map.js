@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Body.css';
+import './map.css';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Immutable from 'immutable';
-import { setStyle } from '../store/index';
+import { setStyle } from '../../store/index';
 
-import geojsonTrafic from '../data/ci_trafi.json';
+import geojsonTrafic from '../../data/ci_trafi.json';
+
+import SidebarLeft from '../Sidebar/SidebarLeft';
 
 
 class Map extends Component {
@@ -22,6 +24,7 @@ class Map extends Component {
       center: [lon, lat], // note lon comes before lat - geoJSON convention
       zoom: [zoomScale],
     });
+
 
     this.map.on('load', async () => {
 
@@ -57,6 +60,17 @@ class Map extends Component {
 
       setStyle(this.map.getStyle());
     });
+
+
+    this.easeTo = (px) => {
+      console.log(this.map);
+      this.map.easeTo({
+        padding: { left: 300 },
+        duration: 1000
+      });
+
+
+    };
   }
 
   componentDidUpdate(prevProps) {
@@ -65,6 +79,11 @@ class Map extends Component {
     const previousStyle = prevProps.style;
 
     console.log(this.props);
+
+    this.map.easeTo({
+      padding: { left: 3000 },
+      duration: 1000
+    });
 
 
     if (this.props.style === null) return;
@@ -78,12 +97,20 @@ class Map extends Component {
 
     console.log(this.props.line);
 
+
+
     this.map.getSource("cta-lines").setData(this.props.line);
 
   };
 
+
+
   render() {
-    return <div id="map" />;
+    return (
+      <div id="map">
+        <SidebarLeft map={this.map} easeTo={this.easeTo} />
+      </div>
+    )
   }
 }
 

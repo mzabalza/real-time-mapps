@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import MapWrapper from './MapWrapper';
-import Sidebar from './Sidebar';
+import MapWrapper from './components/Map/MapWrapper';
+import Sidebar from './components/Sidebar/Sidebar';
 import { Provider } from 'react-redux'
 
 
-import store from '../store/index'
+import store from './store/index'
 
 
 
@@ -17,7 +17,6 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <MapWrapper />
-          <Sidebar />
         </div>
       </Provider>
 
