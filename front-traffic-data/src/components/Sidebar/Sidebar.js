@@ -19,13 +19,12 @@ const Sidebar = props => {
 
   return (
     <div id="sidebar">
-      <h1>STYLING</h1>
+      <h2>STYLING</h2>
       <form>
         <div
           className="styleOption evStations"
           onChange={event => handleStations(event)}
         >
-          <h3> EV STATIONS </h3>
           <label className="sidebarField">
             <input type="radio" value="on" name="chargingStation" />
             On

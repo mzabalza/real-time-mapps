@@ -11,10 +11,17 @@ import geojsonTrafic from '../../data/ci_trafi.json';
 import SidebarLeft from '../Sidebar/SidebarLeft';
 
 
+
+
 class Map extends Component {
+  state = {
+    hoveredStateId: null,
+    properties: null,
+  };
   componentDidMount() {
     const { accessToken, styleName, lon, lat, zoomScale, line } = this.props;
     const { setStyle } = this.props;
+    this.properties = null;
 
     mapboxgl.accessToken = accessToken;
 
@@ -27,6 +34,12 @@ class Map extends Component {
 
 
     this.map.on('load', async () => {
+
+      // Create a popup, but don't add it to the map yet.
+      var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: false
+      });
 
       this.map.addSource('cta-lines', {
         type: 'geojson',
@@ -58,22 +71,46 @@ class Map extends Component {
         }
       })
 
+      // TODO: Add .id to each feature to be able to use the SetFeatureState
+
+      // this.map.on('mousemove', 'cta-lines', (e) => {
+      //   if (e.features.length > 0) {
+      //     if (this.state.hoveredStateId) {
+      //       this.map.setFeatureState(
+      //         { source: 'cta-lines', id: this.map.hoveredStateId },
+      //         { hover: false }
+      //       );
+      //     }
+      //     this.map.hoveredStateId = e.features[0].id;
+      //     console.log(e.features[0]);
+      //     this.map.setFeatureState(
+      //       { source: 'cta-lines', id: this.map.hoveredStateId },
+      //       { hover: true }
+      //     );
+      //   }
+      // });
+
+      this.map.on('mouseenter', 'cta-lines', (e) => {
+
+        this.setState({ properties: e.features[0]['properties'] });
+        var coordinates = e.features[0].geometry.coordinates.slice();
+        popup.setLngLat(coordinates[0]).setHTML(e.features[0]['properties']['etat']).addTo(this.map);
+      });
+
+      this.map.on('mouseleave', 'cta-lines', () => {
+        this.map.getCanvas().style.cursor = '';
+        popup.remove();
+      });
+
       setStyle(this.map.getStyle());
     });
 
-
-    this.easeTo = (px) => {
-      console.log(this.map);
-      this.map.easeTo({
-        padding: { left: 300 },
-        duration: 1000
-      });
-
-
-    };
   }
 
   componentDidUpdate(prevProps) {
+
+    console.log('this state');
+    console.log(this.state);
 
     const currentStyle = this.props.style;
     const previousStyle = prevProps.style;
@@ -84,6 +121,8 @@ class Map extends Component {
       padding: { left: 3000 },
       duration: 1000
     });
+
+
 
 
     if (this.props.style === null) return;
@@ -104,11 +143,10 @@ class Map extends Component {
   };
 
 
-
   render() {
     return (
       <div id="map">
-        <SidebarLeft map={this.map} easeTo={this.easeTo} />
+        <SidebarLeft map={this.map} properties={this.state.properties} />
       </div>
     )
   }

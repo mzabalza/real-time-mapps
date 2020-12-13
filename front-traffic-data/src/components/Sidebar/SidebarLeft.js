@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './sidebarLeft.css';
 import Sidebar from '../Sidebar/Sidebar';
 
-const SidebarLeft = ({ map, easeTo }) => {
+const SidebarLeft = ({ map, properties }) => {
 
     const [leftElem, setLeftElem] = useState(null);
 
@@ -23,23 +23,37 @@ const SidebarLeft = ({ map, easeTo }) => {
         if (collapsed) {
             // Remove the 'collapsed' class from the class list of the element, this sets it back to the expanded state.
             classes.splice(classes.indexOf('collapsed'), 1);
-            easeTo(300);
         } else {
             // Add the 'collapsed' class to the class list of the element
             classes.push('collapsed');
-            easeTo(0);
         }
 
         // Update the class list on the element
         leftElem.className = classes.join(' ');
 
     };
+    const propsPanel = (props) => (
+        <div >
+            {
+                Object.entries(props).map(([key, val]) =>
+                    <div key={key}>{key}: {val}</div>
+                )
+            }
+        </div>
+
+    )
 
     return (
         <div>
             <div id="left" className="sidebar flex-center left collapsed">
                 <div className="sidebar-content rounded-rect flex-center">
-                    <Sidebar />
+                    <div>
+                        <div>
+                            <h1>Info</h1>
+                            {properties && propsPanel(properties)}
+                        </div>
+                        <Sidebar />
+                    </div>
 
                     <div
                         className="sidebar-toggle rounded-rect left"
