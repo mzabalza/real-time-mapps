@@ -5,7 +5,9 @@ import uuid
 import time
 from itertools import cycle 
 
-input_file = open('./data/bus1.json')
+
+# INPUT DATA
+input_file = open('../data/bus1.json')
 json_array = json.load(input_file)
 coordinates = json_array['features'][0]['geometry']['coordinates']
 
@@ -32,7 +34,7 @@ def generate_checkpoint(coordinates):
         print(i, message)
 
         i += 1
-        time.sleep(1.2)
+        time.sleep(1)
         if i == len(coordinates):
             i = 0
 

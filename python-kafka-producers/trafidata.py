@@ -5,26 +5,21 @@ import uuid
 import time
 from itertools import cycle 
 
-
-with open('./paris-data-api/ci_trafi.json', 'r') as f:
+# INPUT DATA
+with open('../paris-data-api/ci_trafi.json', 'r') as f:
     data0 = json.load(f)
-with open('./paris-data-api/ci_trafi_1607642891.json', 'r') as f:
+with open('../paris-data-api/ci_trafi_1607642891.json', 'r') as f:
     data1 = json.load(f)
-with open('./paris-data-api/ci_trafi_1607642898.json', 'r') as f:
+with open('../paris-data-api/ci_trafi_1607642898.json', 'r') as f:
     data2 = json.load(f)
-with open('./paris-data-api/ci_trafi_1607648259.json', 'r') as f:
+with open('../paris-data-api/ci_trafi_1607648259.json', 'r') as f:
     data3 = json.load(f)
-with open('./paris-data-api/ci_trafi_1607648259.json', 'r') as f:
+with open('../paris-data-api/ci_trafi_1607648259.json', 'r') as f:
     data4 = json.load(f)
-with open('./paris-data-api/ci_trafi_1607648261.json', 'r') as f:
+with open('../paris-data-api/ci_trafi_1607648261.json', 'r') as f:
     data5 = json.load(f)
-with open('./paris-data-api/ci_trafi_1607648255.json', 'r') as f:
+with open('../paris-data-api/ci_trafi_1607648255.json', 'r') as f:
     data6 = json.load(f)
-
-    
-
-
-
 
 
 data = {
@@ -36,7 +31,6 @@ data = {
     5: data5,
     6: data6,
 }
-
 
 
 # KAFKA PRODUCER
